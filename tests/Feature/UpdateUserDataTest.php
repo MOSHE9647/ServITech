@@ -32,6 +32,7 @@ class UpdateUserDataTest extends TestCase
         $data = [
             "name" => "New Name",
             "last_name" => "New Last Name",
+            "phone" => "1-402-947-9541",
         ];
 
         // When: The user attempts to update their profile
@@ -39,6 +40,9 @@ class UpdateUserDataTest extends TestCase
         $this->assertNotNull($user, __('messages.user.not_found')); // Ensure the user exists
 
         $response = $this->apiAs($user, 'PUT', route('profile.update'), $data);
+        
+        // The response should return a 200 status with a success message
+        // dd($response->json());
 
         // Then: The response should return a 200 status with a success message
         $response->assertStatus(200);
@@ -48,8 +52,10 @@ class UpdateUserDataTest extends TestCase
                 'user' => [
                     "id"        => 1,
                     "email"     => "example@example.com",
-                    "name"      => "New Name",
-                    "last_name" => "New Last Name",
+                    "name"      => $data['name'],
+                    "last_name" => $data['last_name'],
+                    "phone"     => $data['phone'],
+                    "role"      => null,
                 ],
             ],
             'status' => 200,
@@ -75,6 +81,7 @@ class UpdateUserDataTest extends TestCase
             "email"     => "newemail@example.com",
             "name"      => "New Name",
             "last_name" => "New Last Name",
+            "phone"     => "1-972-924-0022",
         ];
 
         // When: The user attempts to update their profile
@@ -93,6 +100,8 @@ class UpdateUserDataTest extends TestCase
                     "email"     => "example@example.com", // Email should remain unchanged
                     "name"      => "New Name",
                     "last_name" => "New Last Name",
+                    "phone"     => "1-972-924-0022",
+                    "role"      => null
                 ],
             ],
             'status' => 200,

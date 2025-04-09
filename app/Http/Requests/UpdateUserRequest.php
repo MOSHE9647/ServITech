@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name'      => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
+            'phone'     => 'nullable|string|max:20',
         ];
     }
 }
